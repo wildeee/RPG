@@ -1,5 +1,5 @@
 package com.rpg.entity;
 
-public class Entity {
+public abstract class Entity {
     protected Long handle;
 }
