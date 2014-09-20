@@ -2,13 +2,92 @@ package com.rpg.entity;
 
 import com.rpg.enums.TipoJogador;
 
-public abstract class Personagem extends Entity{
+public abstract class Personagem extends Entity {
+
     private String nome;
-    private Double hp;
+    private Integer hp;
     private TipoJogador tipoJogador;
-    
+    private Boolean vivo;
+
+    public Personagem(String nome) {
+        this.nome = nome;
+        this.hp = this.getMaxHealth();
+        this.vivo = true;
+        this.tipoJogador = TipoJogador.CPU;
+    }
+
     public abstract Integer getDano();
+
     public abstract Integer getResistencia();
-    public abstract void atacar(Personagem atacado);
-    public abstract void reagir();
+
+    public abstract Double getChanceResist();
+
+    private Integer calculaValorIncremento(Protagonista healer) {
+        Double fator = healer.getFatorHeal();
+        Integer valorIncremento = (int) Math.floor(this.getMaxHealth() * fator);
+        return valorIncremento;
+    }
+
+    public void atacar(Personagem atacado) {
+        atacado.tomaDano(this);
+    }
+
+    public abstract Integer getMaxHealth();
+
+    public Integer getHp() {
+        return this.hp;
+    }
+
+    public Boolean isVivo() {
+        return this.vivo;
+    }
+
+    protected void morre() {
+        this.vivo = false;
+    }
+
+    private void tomaDano(Personagem damager) {
+        Double chance = Math.random();
+        if (chance < this.getChanceResist()) {
+            this.tomaDanoIntegral(damager.getDano());
+        } else {
+            this.reagir(damager.getDano());
+        }
+        this.verificaMorte();
+    }
+
+    private void tomaDanoIntegral(Integer damage) {
+        this.hp -= damage;
+    }
+
+    private void reagir(Integer damage) {
+        damage -= this.getResistencia();
+        this.hp -= damage;
+    }
+
+    private void verificaMorte() {
+        if (this.hp < 0) {
+            this.hp = 0;
+            this.morre();
+        }
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public TipoJogador getTipoJogador() {
+        return tipoJogador;
+    }
+
+    protected void restauraVida(Protagonista healer) {
+        this.hp += this.calculaValorIncremento(healer);
+        this.verificaSobra();
+    }
+
+    private void verificaSobra() {
+        if (this.hp > this.getMaxHealth()) {
+            this.hp = this.getMaxHealth();
+        }
+    }
 }

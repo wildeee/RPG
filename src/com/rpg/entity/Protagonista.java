@@ -1,8 +1,14 @@
 package com.rpg.entity;
 
-public abstract class Protagonista extends Personagem{
-    private Integer fatorIncremento;
+public abstract class Protagonista extends Personagem {
     
-    public abstract Double calculaFatorIncremento();
-    public abstract void heal(Personagem personagem);
+    public Protagonista(String nome) {
+        super(nome);
+    }
+    
+    public abstract Double getFatorHeal();
+    
+    public void heal(Personagem personagem) {
+        personagem.restauraVida(this);
+    }
 }
