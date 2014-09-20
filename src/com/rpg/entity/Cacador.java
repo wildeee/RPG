@@ -1,5 +1,7 @@
 package com.rpg.entity;
 
+import com.rpg.enums.TipoJogador;
+
 public class Cacador extends Antagonista {
 
     private static final Integer dano = 75;
@@ -7,8 +9,8 @@ public class Cacador extends Antagonista {
     private static final Double chanceResist = 0.42;
     private static final Integer maxHealth = 1600;
 
-    public Cacador(String nome) {
-        super(nome);
+    public Cacador(String nome, TipoJogador tipo) {
+        super(nome, tipo);
     }
 
     @Override

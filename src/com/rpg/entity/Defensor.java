@@ -1,5 +1,7 @@
 package com.rpg.entity;
 
+import com.rpg.enums.TipoJogador;
+
 public class Defensor extends Protagonista {
 
     private static final Integer dano = 60;
@@ -8,8 +10,8 @@ public class Defensor extends Protagonista {
     private static final Integer maxHealth = 1800;
     private static final Double fatorHeal = 0.15;
 
-    public Defensor(String nome) {
-        super(nome);
+    public Defensor(String nome, TipoJogador tipo) {
+        super(nome, tipo);
     }
 
     @Override

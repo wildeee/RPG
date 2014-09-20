@@ -9,11 +9,11 @@ public abstract class Personagem extends Entity {
     private TipoJogador tipoJogador;
     private Boolean vivo;
 
-    public Personagem(String nome) {
+    public Personagem(String nome, TipoJogador tipo) {
         this.nome = nome;
         this.hp = this.getMaxHealth();
         this.vivo = true;
-        this.tipoJogador = TipoJogador.CPU;
+        this.tipoJogador = tipo;
     }
 
     public abstract Integer getDano();

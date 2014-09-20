@@ -1,5 +1,7 @@
 package com.rpg.entity;
 
+import com.rpg.enums.TipoJogador;
+
 public class Bruxa extends Antagonista {
 
     private static final Integer dano = 100;
@@ -7,8 +9,8 @@ public class Bruxa extends Antagonista {
     private static final Double chanceResist = 0.4;
     private static final Integer maxHealth = 1100;
 
-    public Bruxa(String nome) {
-        super(nome);
+    public Bruxa(String nome, TipoJogador tipo) {
+        super(nome, tipo);
     }
 
     @Override

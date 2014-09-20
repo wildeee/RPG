@@ -1,15 +1,17 @@
 package com.rpg.entity;
 
-public abstract class Antagonista extends Personagem{
+import com.rpg.enums.TipoJogador;
 
-    public Antagonista(String nome) {
-        super(nome);
+public abstract class Antagonista extends Personagem {
+
+    public Antagonista(String nome, TipoJogador tipo) {
+        super(nome, tipo);
     }
-    
+
     @Override
-    public Integer getDano(){
+    public Integer getDano() {
         return 2 * this.getNormalDamage();
     }
-    
+
     protected abstract Integer getNormalDamage();
 }
