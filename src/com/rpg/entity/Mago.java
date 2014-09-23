@@ -1,9 +1,12 @@
 package com.rpg.entity;
 
+import com.rpg.enums.Sexo;
 import com.rpg.enums.TipoJogador;
 
 public class Mago extends Protagonista {
 
+    private static final String nomeClasse = "Mago";
+    private static final Sexo generoClasse = Sexo.MASCULINO;
     private static final Integer dano = 130;
     private static final Integer resistencia = 20;
     private static final Double chanceResist = 0.20;
@@ -37,6 +40,16 @@ public class Mago extends Protagonista {
     @Override
     public Integer getMaxHealth() {
         return Mago.maxHealth;
+    }
+
+    @Override
+    public String getNomeClasse() {
+        return Mago.nomeClasse;
+    }
+
+    @Override
+    public Sexo getGeneroClasse() {
+        return Mago.generoClasse;
     }
 
 }

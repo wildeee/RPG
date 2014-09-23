@@ -1,5 +1,6 @@
 package com.rpg.entity;
 
+import com.rpg.enums.Sexo;
 import com.rpg.enums.TipoJogador;
 
 public abstract class Personagem extends Entity {
@@ -90,4 +91,8 @@ public abstract class Personagem extends Entity {
             this.hp = this.getMaxHealth();
         }
     }
+
+    public abstract String getNomeClasse();
+
+    public abstract Sexo getGeneroClasse();
 }
