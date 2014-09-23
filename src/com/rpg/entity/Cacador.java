@@ -13,7 +13,7 @@ public class Cacador extends Antagonista {
     private static final Integer maxHealth = 1600;
 
     public Cacador(String nome, TipoJogador tipo) {
-        super(nome, tipo);
+        super(tipo);
     }
 
     @Override

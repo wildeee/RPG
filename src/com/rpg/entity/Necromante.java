@@ -13,7 +13,7 @@ public class Necromante extends Antagonista {
     private static final Integer maxHealth = 990;
 
     public Necromante(String nome, TipoJogador tipo) {
-        super(nome, tipo);
+        super(tipo);
     }
 
     @Override

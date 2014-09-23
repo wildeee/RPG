@@ -4,8 +4,8 @@ import com.rpg.enums.TipoJogador;
 
 public abstract class Protagonista extends Personagem {
 
-    public Protagonista(String nome, TipoJogador tipo) {
-        super(nome, tipo);
+    public Protagonista(TipoJogador tipo) {
+        super(tipo);
     }
 
     public abstract Double getFatorHeal();

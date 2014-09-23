@@ -13,8 +13,8 @@ public class Mago extends Protagonista {
     private static final Integer maxHealth = 930;
     private static final Double fatorHeal = 0.35;
 
-    public Mago(String nome, TipoJogador tipo) {
-        super(nome, tipo);
+    public Mago(TipoJogador tipo) {
+        super(tipo);
     }
 
     @Override

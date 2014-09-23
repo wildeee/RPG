@@ -13,7 +13,7 @@ public class Guerreiro extends Antagonista {
     private static final Integer maxHealth = 1200;
 
     public Guerreiro(String nome, TipoJogador tipo) {
-        super(nome, tipo);
+        super(tipo);
     }
 
     @Override

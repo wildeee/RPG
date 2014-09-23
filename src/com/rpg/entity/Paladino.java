@@ -13,8 +13,8 @@ public class Paladino extends Protagonista {
     private static final Integer maxHealth = 1800;
     private static final Double fatorHeal = 0.15;
 
-    public Paladino(String nome, TipoJogador tipo) {
-        super(nome, tipo);
+    public Paladino(TipoJogador tipo) {
+        super(tipo);
     }
 
     @Override

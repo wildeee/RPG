@@ -14,7 +14,7 @@ public class Clerigo extends Protagonista {
     private static final Double fatorHeal = 0.7;
 
     public Clerigo(String nome, TipoJogador tipo) {
-        super(nome, tipo);
+        super(tipo);
     }
 
     @Override

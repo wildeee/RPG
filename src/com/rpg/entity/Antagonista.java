@@ -4,8 +4,8 @@ import com.rpg.enums.TipoJogador;
 
 public abstract class Antagonista extends Personagem {
 
-    public Antagonista(String nome, TipoJogador tipo) {
-        super(nome, tipo);
+    public Antagonista(TipoJogador tipo) {
+        super(tipo);
     }
 
     @Override
