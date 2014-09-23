@@ -12,7 +12,7 @@ public class Cacador extends Antagonista {
     private static final Double chanceResist = 0.42;
     private static final Integer maxHealth = 1600;
 
-    public Cacador(String nome, TipoJogador tipo) {
+    public Cacador(TipoJogador tipo) {
         super(tipo);
     }
 

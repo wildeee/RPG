@@ -13,7 +13,7 @@ public class Clerigo extends Protagonista {
     private static final Integer maxHealth = 1000;
     private static final Double fatorHeal = 0.7;
 
-    public Clerigo(String nome, TipoJogador tipo) {
+    public Clerigo(TipoJogador tipo) {
         super(tipo);
     }
 

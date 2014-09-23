@@ -12,7 +12,7 @@ public class Guerreiro extends Antagonista {
     private static final Double chanceResist = 0.35;
     private static final Integer maxHealth = 1200;
 
-    public Guerreiro(String nome, TipoJogador tipo) {
+    public Guerreiro(TipoJogador tipo) {
         super(tipo);
     }
 

@@ -1,15 +1,23 @@
 package com.rpg.view;
 
+import com.rpg.entity.Bruxa;
+import com.rpg.entity.Cacador;
+import com.rpg.entity.Cavaleiro;
+import com.rpg.entity.Clerigo;
+import com.rpg.entity.Guerreiro;
 import com.rpg.entity.Mago;
+import com.rpg.entity.Necromante;
+import com.rpg.entity.Paladino;
+import com.rpg.entity.Personagem;
 import com.rpg.enums.TipoJogador;
+import com.rpg.game.GameController;
 import com.rpg.utils.InterfaceUtils;
 
 public class ChooseYourTeam extends javax.swing.JFrame {
 
     public ChooseYourTeam() {
         initComponents();
-        this.setVisible(true);
-        this.setLocationRelativeTo(null);
+        InterfaceUtils.preparaTela(this);
     }
 
     /**
@@ -43,6 +51,7 @@ public class ChooseYourTeam extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Escolha seu time!");
         setMinimumSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
@@ -58,39 +67,74 @@ public class ChooseYourTeam extends javax.swing.JFrame {
         jLabel2.setText("Paladino:");
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/rpg/imagens/Paladino.jpg"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Clérigo:");
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/rpg/imagens/Clerigo.jpg"))); // NOI18N
         jButton3.setMaximumSize(new java.awt.Dimension(151, 151));
         jButton3.setMinimumSize(new java.awt.Dimension(151, 151));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Cavaleiro:");
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/rpg/imagens/Cavaleiro.jpg"))); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Necromante:");
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/rpg/imagens/Necromante.jpg"))); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Guerreiro:");
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/rpg/imagens/Guerreiro.jpg"))); // NOI18N
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
-        jLabel7.setText("Guerreiro:");
+        jLabel7.setText("Caçador:");
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/rpg/imagens/Cacador.jpg"))); // NOI18N
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Bruxa:");
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/rpg/imagens/Bruxa.jpg"))); // NOI18N
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Escolha os 6 integrantes do seu time!");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setEnabled(false);
         jScrollPane1.setViewportView(jTextArea1);
+        jTextArea1.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -185,11 +229,62 @@ public class ChooseYourTeam extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void adicionaLista(Personagem pers) {
+        GameController.addPersonagem(pers);
+        this.escreveConsole(pers);
+    }
+
+    private void escreveConsole(Personagem pers){
+        InterfaceUtils.writelnConsole(jTextArea1, pers.getDescricaoPersonagem());
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Mago mage = new Mago(TipoJogador.HUMAN);
         InterfaceUtils.askCharacterName(this, mage);
-        //REFATORAR
+        this.adicionaLista(mage);      
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Paladino paladin = new Paladino(TipoJogador.HUMAN);
+        InterfaceUtils.askCharacterName(this, paladin);
+        this.adicionaLista(paladin);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Clerigo cler = new Clerigo(TipoJogador.HUMAN);
+        InterfaceUtils.askCharacterName(this, cler);
+        this.adicionaLista(cler);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Cavaleiro knight = new Cavaleiro(TipoJogador.HUMAN);
+        InterfaceUtils.askCharacterName(this, knight);
+        this.adicionaLista(knight);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        Necromante necro = new Necromante(TipoJogador.HUMAN);
+        InterfaceUtils.askCharacterName(this, necro);
+        this.adicionaLista(necro);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        Guerreiro warrior = new Guerreiro(TipoJogador.HUMAN);
+        InterfaceUtils.askCharacterName(this, warrior);
+        this.adicionaLista(warrior);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        Cacador hunter = new Cacador(TipoJogador.HUMAN);
+        InterfaceUtils.askCharacterName(this, hunter);
+        this.adicionaLista(hunter);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        Bruxa witch = new Bruxa(TipoJogador.HUMAN);
+        InterfaceUtils.askCharacterName(this, witch);
+        this.adicionaLista(witch);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments

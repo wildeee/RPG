@@ -78,7 +78,9 @@ public abstract class Personagem extends Entity {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if (nome != null && !nome.equals("")) {
+            this.nome = nome;
+        }
     }
 
     public TipoJogador getTipoJogador() {
@@ -94,6 +96,26 @@ public abstract class Personagem extends Entity {
         if (this.hp > this.getMaxHealth()) {
             this.hp = this.getMaxHealth();
         }
+    }
+    
+    public String getDescricaoPersonagem(){
+        String retorno = this.getNomeClasse();
+        retorno += " / Nome: ";
+        retorno += this.getNome();
+        retorno += " / HP: ";
+        retorno += this.getMaxHealth();
+        retorno += " / Dano: ";
+        retorno += this.getDano();
+        retorno += " / Resistencia: ";
+        retorno += this.getResistencia();
+        retorno += " / Chance de resistencia: ";
+        retorno += this.getChanceResist() * 100;
+        retorno += "%";
+        if (this instanceof Protagonista){
+            Protagonista p = (Protagonista) this;
+            retorno += " / Fator de cura: " + p.getFatorHeal() * 100 + "%";
+        }
+        return retorno;
     }
 
     public abstract String getNomeClasse();

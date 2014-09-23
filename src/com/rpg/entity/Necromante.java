@@ -12,7 +12,7 @@ public class Necromante extends Antagonista {
     private static final Double chanceResist = 0.19;
     private static final Integer maxHealth = 990;
 
-    public Necromante(String nome, TipoJogador tipo) {
+    public Necromante(TipoJogador tipo) {
         super(tipo);
     }
 
