@@ -21,11 +21,18 @@ public class GameController {
     private static final ArrayList<Personagem> ordemTurnos = new ArrayList<>();
 
     public static void addPersonagem(Personagem personagem) {
-        if (GameController.ordemTurnos.size() < 10) {
+        if (GameController.ordemTurnos.size() < 11) {
             GameController.ordemTurnos.add(personagem);
             GameController.insereInimigo(personagem);
         }
-        
+    }
+
+    public static int getListSize() {
+        return GameController.ordemTurnos.size();
+    }
+
+    public static Personagem getPersonagemAtIndex(int index) {
+        return GameController.ordemTurnos.get(index);
     }
 
     public static Personagem getPersonagemTurno() {

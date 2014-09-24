@@ -232,16 +232,20 @@ public class ChooseYourTeam extends javax.swing.JFrame {
     private void adicionaLista(Personagem pers) {
         GameController.addPersonagem(pers);
         this.escreveConsole(pers);
+        if (GameController.getListSize() >= 11) {
+            this.dispose();
+            new Battle();
+        }
     }
 
-    private void escreveConsole(Personagem pers){
+    private void escreveConsole(Personagem pers) {
         InterfaceUtils.writelnConsole(jTextArea1, pers.getDescricaoPersonagem());
     }
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Mago mage = new Mago(TipoJogador.HUMAN);
         InterfaceUtils.askCharacterName(this, mage);
-        this.adicionaLista(mage);      
+        this.adicionaLista(mage);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
