@@ -3,6 +3,7 @@ package com.rpg.utils;
 import com.rpg.entity.Personagem;
 import com.rpg.entity.Protagonista;
 import com.rpg.enums.Sexo;
+import com.rpg.game.GameController;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,10 +19,20 @@ public class InterfaceUtils {
     }
 
     public static void askCharacterName(JFrame jf, Personagem personagem) {
-        personagem.setNome(JOptionPane.showInputDialog(jf,
+        String nome = JOptionPane.showInputDialog(jf,
                 InterfaceUtils.getCharacterNameMessage(personagem),
                 "Insira o nome!",
-                1));
+                1);
+        personagem.setNome(nome);
+        for (Personagem p : GameController.getAllPersonagens()) {
+            if (personagem.getNome().equals(p.getNome())) {
+                JOptionPane.showMessageDialog(jf, "Já existe um personagem cadastrado com esse nome.\n"
+                        + "Por favor, tente outro.");
+                askCharacterName(jf, personagem);
+                return;
+            }
+        }
+
     }
 
     private static String getCharacterNameMessage(Personagem personagem) {
@@ -53,6 +64,13 @@ public class InterfaceUtils {
         } else {
             healEffect.setVisible(false);
         }
+    }
 
+    public static boolean verificaBotaoPressionado(JFrame jf, int botao) {
+        if (botao == GameController.getTurnoAtual()) {
+            JOptionPane.showMessageDialog(jf, "Impossível fazer qualquer ação ao personagem do turno!");
+            return true;
+        }
+        return false;
     }
 }

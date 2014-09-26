@@ -27,6 +27,10 @@ public class GameController {
         }
     }
 
+    public static int getTurnoAtual(){
+        return GameController.turnoAtual;
+    }
+    
     public static int getListSize() {
         return GameController.ordemTurnos.size();
     }

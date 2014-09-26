@@ -7,7 +7,7 @@ public abstract class Personagem extends Entity {
 
     private String nome;
     private Integer hp;
-    private TipoJogador tipoJogador;
+    private final TipoJogador tipoJogador;
     private Boolean vivo;
 
     public Personagem(TipoJogador tipo) {
