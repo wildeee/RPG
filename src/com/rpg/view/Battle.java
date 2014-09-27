@@ -7,6 +7,7 @@ package com.rpg.view;
 
 import com.rpg.game.GameController;
 import com.rpg.utils.InterfaceUtils;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -18,9 +19,10 @@ public class Battle extends javax.swing.JFrame {
         initComponents();
         InterfaceUtils.preparaTela(this);
         this.atualizaCampos();
+        InterfaceUtils.imprimeTurnoConsole(this);
     }
 
-    private void atualizaCampos() {
+    public void atualizaCampos() {
         InterfaceUtils.atualizaCampos(jButton7, jLabel31, jLabel32, jLabel33, jLabel34, jLabel35,
                 GameController.getPersonagemAtIndex(0));
         InterfaceUtils.atualizaCampos(jButton1, jLabel1, jLabel2, jLabel3, jLabel4, jLabel5,
@@ -45,9 +47,10 @@ public class Battle extends javax.swing.JFrame {
                 GameController.getPersonagemAtIndex(10));
         InterfaceUtils.atualizaCampos(jButton6, jLabel26, jLabel27, jLabel28, jLabel29, jLabel30,
                 GameController.getPersonagemAtIndex(11));
+    }
 
-        InterfaceUtils.writelnConsole(jConsole, "Turno atual: " + GameController.getPersonagemTurno().getNome());
-
+    public JTextArea getConsole() {
+        return this.jConsole;
     }
 
     /**
@@ -152,6 +155,11 @@ public class Battle extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(800, 600));
 
         jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("HP");
 
@@ -207,6 +215,11 @@ public class Battle extends javax.swing.JFrame {
         jLabel10.setText("Classe");
 
         jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -252,6 +265,11 @@ public class Battle extends javax.swing.JFrame {
         jLabel15.setText("Classe");
 
         jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -297,6 +315,11 @@ public class Battle extends javax.swing.JFrame {
         jLabel20.setText("Classe");
 
         jButton4.setText("jButton4");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -342,6 +365,11 @@ public class Battle extends javax.swing.JFrame {
         jLabel25.setText("Classe");
 
         jButton5.setText("jButton5");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -387,6 +415,11 @@ public class Battle extends javax.swing.JFrame {
         jLabel30.setText("Classe");
 
         jButton6.setText("jButton6");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -801,40 +834,88 @@ public class Battle extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        if (!InterfaceUtils.verificaBotaoPressionado(this, 0)) {
-
+        final int num = 0;
+        if (!InterfaceUtils.verificaBotaoPressionado(this, num)) {
+            GameController.healPersonagem(this, num);
+            this.atualizaCampos();
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        if (!InterfaceUtils.verificaBotaoPressionado(this, 2)) {
-
+        final int num = 2;
+        if (!InterfaceUtils.verificaBotaoPressionado(this, num)) {
+            GameController.healPersonagem(this, num);
+            this.atualizaCampos();
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        if (!InterfaceUtils.verificaBotaoPressionado(this, 4)) {
-
+        final int num = 4;
+        if (!InterfaceUtils.verificaBotaoPressionado(this, num)) {
+            GameController.healPersonagem(this, num);
+            this.atualizaCampos();
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        if (!InterfaceUtils.verificaBotaoPressionado(this, 6)) {
-
+        final int num = 6;
+        if (!InterfaceUtils.verificaBotaoPressionado(this, num)) {
+            GameController.healPersonagem(this, num);
+            this.atualizaCampos();
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        if (!InterfaceUtils.verificaBotaoPressionado(this, 8)) {
-
+        final int num = 8;
+        if (!InterfaceUtils.verificaBotaoPressionado(this, num)) {
+            GameController.healPersonagem(this, num);
+            this.atualizaCampos();
         }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        if (!InterfaceUtils.verificaBotaoPressionado(this, 10)) {
-
+        final int num = 10;
+        if (!InterfaceUtils.verificaBotaoPressionado(this, num)) {
+            GameController.healPersonagem(this, num);
+            this.atualizaCampos();
         }
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        final int num = 1;
+        GameController.atacaPersonagem(this, num);
+        this.atualizaCampos();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        final int num = 3;
+        GameController.atacaPersonagem(this, num);
+        this.atualizaCampos();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        final int num = 5;
+        GameController.atacaPersonagem(this, num);
+        this.atualizaCampos();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        final int num = 7;
+        GameController.atacaPersonagem(this, num);
+        this.atualizaCampos();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        final int num = 9;
+        GameController.atacaPersonagem(this, num);
+        this.atualizaCampos();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        final int num = 11;
+        GameController.atacaPersonagem(this, num);
+        this.atualizaCampos();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

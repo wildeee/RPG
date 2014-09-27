@@ -1,7 +1,10 @@
 package com.rpg.entity;
 
 import com.rpg.enums.Sexo;
+import com.rpg.enums.TipoDamage;
 import com.rpg.enums.TipoJogador;
+import com.rpg.utils.DamageReturn;
+import com.rpg.utils.HealReturn;
 
 public abstract class Personagem extends Entity {
 
@@ -29,8 +32,8 @@ public abstract class Personagem extends Entity {
         return valorIncremento;
     }
 
-    public void atacar(Personagem atacado) {
-        atacado.tomaDano(this);
+    public DamageReturn atacar(Personagem atacado) {
+        return atacado.tomaDano(this);
     }
 
     public abstract Integer getMaxHealth();
@@ -47,27 +50,34 @@ public abstract class Personagem extends Entity {
         this.vivo = false;
     }
 
-    private void tomaDano(Personagem damager) {
+    private DamageReturn tomaDano(Personagem damager) {
         Double chance = Math.random();
+        int dano;
+        TipoDamage tipo;
         if (chance < this.getChanceResist()) {
             this.tomaDanoIntegral(damager.getDano());
+            dano = damager.getDano();
+            tipo = TipoDamage.INTEGRAL;
         } else {
-            this.reagir(damager.getDano());
+            dano = this.reagir(damager.getDano());
+            tipo = TipoDamage.REDUZIDO;
         }
         this.verificaMorte();
+        return new DamageReturn(tipo, this, dano);
     }
 
     private void tomaDanoIntegral(Integer damage) {
         this.hp -= damage;
     }
 
-    private void reagir(Integer damage) {
+    private int reagir(Integer damage) {
         damage -= this.getResistencia();
         this.hp -= damage;
+        return damage;
     }
 
     private void verificaMorte() {
-        if (this.hp < 0) {
+        if (this.hp <= 0) {
             this.hp = 0;
             this.morre();
         }
@@ -87,9 +97,11 @@ public abstract class Personagem extends Entity {
         return tipoJogador;
     }
 
-    protected void restauraVida(Protagonista healer) {
-        this.hp += this.calculaValorIncremento(healer);
+    protected HealReturn restauraVida(Protagonista healer) {
+        int valor = this.calculaValorIncremento(healer);
+        this.hp += valor;
         this.verificaSobra();
+        return new HealReturn(this, valor);
     }
 
     private void verificaSobra() {
@@ -97,8 +109,8 @@ public abstract class Personagem extends Entity {
             this.hp = this.getMaxHealth();
         }
     }
-    
-    public String getDescricaoPersonagem(){
+
+    public String getDescricaoPersonagem() {
         String retorno = this.getNomeClasse();
         retorno += " / Nome: ";
         retorno += this.getNome();
@@ -111,7 +123,7 @@ public abstract class Personagem extends Entity {
         retorno += " / Chance de resistencia: ";
         retorno += this.getChanceResist() * 100;
         retorno += "%";
-        if (this instanceof Protagonista){
+        if (this instanceof Protagonista) {
             Protagonista p = (Protagonista) this;
             retorno += " / Fator de cura: " + p.getFatorHeal() * 100 + "%";
         }

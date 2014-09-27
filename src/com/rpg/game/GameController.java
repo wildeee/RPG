@@ -1,5 +1,6 @@
 package com.rpg.game;
 
+import com.rpg.entity.Antagonista;
 import com.rpg.entity.Bruxa;
 import com.rpg.entity.Cacador;
 import com.rpg.entity.Cavaleiro;
@@ -11,8 +12,16 @@ import com.rpg.entity.Paladino;
 import com.rpg.entity.Personagem;
 import com.rpg.entity.Protagonista;
 import com.rpg.enums.TipoJogador;
+import com.rpg.utils.DamageReturn;
+import com.rpg.utils.HealReturn;
+import com.rpg.utils.InterfaceUtils;
+import com.rpg.utils.Return;
+import com.rpg.view.Battle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class GameController {
 
@@ -27,10 +36,10 @@ public class GameController {
         }
     }
 
-    public static int getTurnoAtual(){
+    public static int getTurnoAtual() {
         return GameController.turnoAtual;
     }
-    
+
     public static int getListSize() {
         return GameController.ordemTurnos.size();
     }
@@ -43,11 +52,13 @@ public class GameController {
         return GameController.ordemTurnos.get(turnoAtual);
     }
 
-    public static void proximoTurno() {
+    private static void proximoTurno(Battle jf) {
         GameController.turnoAtual++;
         if (GameController.turnoAtual > 11) {
             GameController.turnoAtual = 0;
         }
+        InterfaceUtils.imprimeTurnoConsole(jf);
+
     }
 
     public static List<Personagem> getAllPersonagens() {
@@ -90,5 +101,97 @@ public class GameController {
 
     private static String nomeaBot() {
         return "CPU " + ++contagemBots;
+    }
+
+    private static void verificaWinLose() throws EndGameException {
+        boolean botsMortos = true;
+        boolean humanosMortos = true;
+        for (Personagem p : ordemTurnos) {
+            if (p.getTipoJogador().equals(TipoJogador.HUMAN)) {
+                if (p.isVivo()) {
+                    humanosMortos = false;
+                }
+            } else {
+                if (p.isVivo()) {
+                    botsMortos = false;
+                }
+            }
+        }
+
+        if (botsMortos) {
+            throw new EndGameException(true);
+        }
+
+        if (humanosMortos) {
+            throw new EndGameException(false);
+        }
+    }
+
+    public static void atacaPersonagem(Battle jf, int num) {
+        Personagem turno = GameController.getPersonagemTurno();
+        DamageReturn retorno = turno.atacar(GameController.getPersonagemAtIndex(num));
+        try {
+            GameController.verificaWinLose();
+        } catch (EndGameException ex) {
+            GameController.fimJogo(jf, ex);
+        }
+        InterfaceUtils.writelnConsole(jf.getConsole(), retorno.toString());
+        GameController.rodadaBots(jf);
+    }
+
+    private static void fimJogo(JFrame jf, EndGameException ex) {
+        jf.dispose();
+        String message;
+        if (ex.youWin()) {
+            message = "Parabéns! Você ganhou!!!";
+        } else {
+            message = "Você perdeu.";
+        }
+        JOptionPane.showMessageDialog(null, message);
+    }
+
+    private static void rodadaBots(Battle jf) {
+        GameController.proximoTurno(jf);
+        GameController.acaoBot(jf, GameController.getRandomNumberExceptAtual());
+    }
+
+    private static void acaoBot(Battle jf, int num) {
+        Return retorno = null;
+        if (num % 2 == 0 || GameController.getPersonagemTurno() instanceof Antagonista) {
+            Personagem turno = GameController.getPersonagemTurno();
+            retorno = turno.atacar(GameController.getPersonagemAtIndex(num));
+            try {
+                GameController.verificaWinLose();
+            } catch (EndGameException ex) {
+                GameController.fimJogo(jf, ex);
+            }
+        } else {
+            Personagem turno = GameController.getPersonagemTurno();
+            Protagonista healer = (Protagonista) turno;
+            retorno = healer.heal(GameController.getPersonagemAtIndex(num));
+        }
+        InterfaceUtils.writelnConsole(jf.getConsole(), retorno.toString());
+        GameController.proximoTurno(jf);
+    }
+
+    private static int getRandomNumberExceptAtual() {
+        Random rand = new Random();
+        int numero = rand.nextInt(12);
+        return numero == turnoAtual ? getRandomNumberExceptAtual() : numero;
+    }
+
+    public static void healPersonagem(Battle jf, int num) {
+        Personagem turno = GameController.getPersonagemTurno();
+        if (turno instanceof Protagonista) {
+            Protagonista healer = (Protagonista) turno;
+
+            HealReturn retorno = healer.heal(GameController.getPersonagemAtIndex(num));
+            InterfaceUtils.writelnConsole(jf.getConsole(), retorno.toString());
+            GameController.rodadaBots(jf);
+        } else {
+            JOptionPane.showMessageDialog(jf, "O personagem do turno atual "
+                    + "não é um protagonista e não pode curar aliados!!!");
+        }
+
     }
 }

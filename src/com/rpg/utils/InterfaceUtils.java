@@ -4,6 +4,7 @@ import com.rpg.entity.Personagem;
 import com.rpg.entity.Protagonista;
 import com.rpg.enums.Sexo;
 import com.rpg.game.GameController;
+import com.rpg.view.Battle;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -72,5 +73,10 @@ public class InterfaceUtils {
             return true;
         }
         return false;
+    }
+
+    public static void imprimeTurnoConsole(Battle jf) {
+        InterfaceUtils.writelnConsole(jf.getConsole(),
+                "Turno atual: " + GameController.getPersonagemTurno().getNome());
     }
 }
