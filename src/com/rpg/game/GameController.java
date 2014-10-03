@@ -53,12 +53,17 @@ public class GameController {
     }
 
     private static void proximoTurno(Battle jf) {
-        GameController.turnoAtual++;
-        if (GameController.turnoAtual > 11) {
-            GameController.turnoAtual = 0;
+
+        GameController.incrementaTurno(1);
+        while (!GameController.getPersonagemAtIndex(turnoAtual).isVivo()) {
+            GameController.incrementaTurno(2);
         }
         InterfaceUtils.imprimeTurnoConsole(jf);
+    }
 
+    private static void incrementaTurno(int inc) {
+        turnoAtual += inc;
+        turnoAtual %= 12;
     }
 
     public static List<Personagem> getAllPersonagens() {
@@ -177,7 +182,10 @@ public class GameController {
     private static int getRandomNumberExceptAtual() {
         Random rand = new Random();
         int numero = rand.nextInt(12);
-        return numero == turnoAtual ? getRandomNumberExceptAtual() : numero;
+        return numero == turnoAtual
+                || !GameController.getPersonagemAtIndex(numero).isVivo()
+                ? getRandomNumberExceptAtual()
+                : numero;
     }
 
     public static void healPersonagem(Battle jf, int num) {
