@@ -9,6 +9,17 @@ public enum TipoJogador {
         this.tipo = tipo;
     }
 
+    public TipoJogador next() {
+        switch (this) {
+            case HUMAN:
+                return CPU;
+            case CPU:
+                return HUMAN;
+            default:
+                throw new UnsupportedOperationException("Não implementado.");
+        }
+    }
+
     @Override
     public String toString() {
         return this.tipo;

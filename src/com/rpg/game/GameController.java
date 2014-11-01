@@ -17,6 +17,7 @@ import com.rpg.utils.HealReturn;
 import com.rpg.utils.InterfaceUtils;
 import com.rpg.utils.Return;
 import com.rpg.view.Battle;
+import com.rpg.view.ChooseYourTeam;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,8 +27,11 @@ import javax.swing.JOptionPane;
 public class GameController {
 
     private static int contagemBots = 0;
-    private static int turnoAtual = 0;
-    private static final ArrayList<Personagem> ordemTurnos = new ArrayList<>();
+    private static int posicaoPersonagem = 0;
+    private static int turnoHumano = 0;
+    private static int turnoCpu = -1;
+    private static TipoJogador tipoTurnoAtual = TipoJogador.HUMAN;
+    private static ArrayList<Personagem> ordemTurnos = new ArrayList<>();
 
     public static void addPersonagem(Personagem personagem) {
         if (GameController.ordemTurnos.size() < 11) {
@@ -36,8 +40,8 @@ public class GameController {
         }
     }
 
-    public static int getTurnoAtual() {
-        return GameController.turnoAtual;
+    public static int getPosicaoPersonagem() {
+        return GameController.posicaoPersonagem;
     }
 
     public static int getListSize() {
@@ -49,21 +53,37 @@ public class GameController {
     }
 
     public static Personagem getPersonagemTurno() {
-        return GameController.ordemTurnos.get(turnoAtual);
+        return GameController.ordemTurnos.get(posicaoPersonagem);
     }
 
     private static void proximoTurno(Battle jf) {
 
+        GameController.tipoTurnoAtual = GameController.tipoTurnoAtual.next();
         GameController.incrementaTurno(1);
-        while (!GameController.getPersonagemAtIndex(turnoAtual).isVivo()) {
-            GameController.incrementaTurno(2);
+        while (!GameController.getPersonagemAtIndex(posicaoPersonagem).isVivo()) {
+            GameController.incrementaTurno(1);
         }
         InterfaceUtils.imprimeTurnoConsole(jf);
+
+//        GameController.incrementaTurno(1);
+//        while (!GameController.getPersonagemAtIndex(posicaoPersonagem).isVivo()) {
+//            GameController.incrementaTurno(2);
+//        }
+//        InterfaceUtils.imprimeTurnoConsole(jf);
     }
 
     private static void incrementaTurno(int inc) {
-        turnoAtual += inc;
-        turnoAtual %= 12;
+        if (tipoTurnoAtual.equals(TipoJogador.HUMAN)) {
+            turnoHumano += inc;
+            turnoHumano %= 6;
+            posicaoPersonagem = turnoHumano * 2;
+        } else {
+            turnoCpu += inc;
+            turnoCpu %= 6;
+            posicaoPersonagem = (turnoCpu * 2) + 1;
+        }
+//        posicaoPersonagem += inc;
+//        posicaoPersonagem %= 12;
     }
 
     public static List<Personagem> getAllPersonagens() {
@@ -153,6 +173,7 @@ public class GameController {
             message = "Você perdeu.";
         }
         JOptionPane.showMessageDialog(null, message);
+        System.exit(0);
     }
 
     private static void rodadaBots(Battle jf) {
@@ -162,8 +183,8 @@ public class GameController {
 
     private static void acaoBot(Battle jf, int num) {
         Return retorno = null;
-        if (num % 2 == 0 || GameController.getPersonagemTurno() instanceof Antagonista) {
-            Personagem turno = GameController.getPersonagemTurno();
+        Personagem turno = GameController.getPersonagemTurno();
+        if (num % 2 == 0 || turno instanceof Antagonista) {
             retorno = turno.atacar(GameController.getPersonagemAtIndex(num));
             try {
                 GameController.verificaWinLose();
@@ -171,7 +192,6 @@ public class GameController {
                 GameController.fimJogo(jf, ex);
             }
         } else {
-            Personagem turno = GameController.getPersonagemTurno();
             Protagonista healer = (Protagonista) turno;
             retorno = healer.heal(GameController.getPersonagemAtIndex(num));
         }
@@ -182,7 +202,7 @@ public class GameController {
     private static int getRandomNumberExceptAtual() {
         Random rand = new Random();
         int numero = rand.nextInt(12);
-        return numero == turnoAtual
+        return numero == posicaoPersonagem
                 || !GameController.getPersonagemAtIndex(numero).isVivo()
                 ? getRandomNumberExceptAtual()
                 : numero;

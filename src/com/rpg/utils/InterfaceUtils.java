@@ -68,7 +68,7 @@ public class InterfaceUtils {
     }
 
     public static boolean verificaBotaoPressionado(JFrame jf, int botao) {
-        if (botao == GameController.getTurnoAtual()) {
+        if (botao == GameController.getPosicaoPersonagem()) {
             JOptionPane.showMessageDialog(jf, "Impossível fazer qualquer ação ao personagem do turno!");
             return true;
         }
