@@ -6,7 +6,7 @@ import com.rpg.enums.TipoJogador;
 import com.rpg.utils.DamageReturn;
 import com.rpg.utils.HealReturn;
 
-public abstract class Personagem extends Entity {
+public abstract class Personagem {
 
     private String nome;
     private Integer hp;

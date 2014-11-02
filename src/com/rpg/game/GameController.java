@@ -184,11 +184,10 @@ public class GameController {
     private static void acaoBot(Battle jf, int num) {
         Return retorno = null;
         Personagem turno = GameController.getPersonagemTurno();
-        if (num % 2 == 1 && turno instanceof Antagonista){
+        if (num % 2 == 1 && turno instanceof Antagonista) {
             acaoBot(jf, GameController.getRandomNumberExceptAtual());
             return;
         }
-        System.out.println("RANDOM NUMBER: " + num);
         if ((num % 2) == 0 || turno instanceof Antagonista) {
             retorno = turno.atacar(GameController.getPersonagemAtIndex(num));
             try {
