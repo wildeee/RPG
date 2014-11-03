@@ -17,38 +17,38 @@ import static org.junit.Assert.*;
  * @author Usuario
  */
 public class TipoJogadorTest {
-    
+
     public TipoJogadorTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
     @Test
-    public void testNextTipoJogadorHuman(){
+    public void testNextTipoJogadorHuman() {
         assertEquals(TipoJogador.HUMAN, TipoJogador.CPU.next());
     }
-    
+
     @Test
-    public void testNextTipoJogadorCpu(){
+    public void testNextTipoJogadorCpu() {
         assertEquals(TipoJogador.CPU, TipoJogador.HUMAN.next());
     }
-    
+
     @Test
-    public void testTipoJogadorToString(){
+    public void testTipoJogadorToString() {
         assertEquals("Humano", TipoJogador.HUMAN.toString());
     }
 }
