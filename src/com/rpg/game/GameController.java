@@ -18,6 +18,7 @@ import com.rpg.utils.InterfaceUtils;
 import com.rpg.utils.Return;
 import com.rpg.view.Battle;
 import com.rpg.view.ChooseYourTeam;
+import com.rpg.view.InputRank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -159,6 +160,7 @@ public class GameController {
             GameController.verificaWinLose();
         } catch (EndGameException ex) {
             GameController.fimJogo(jf, ex);
+            return;
         }
         InterfaceUtils.writelnConsole(jf.getConsole(), retorno.toString());
         GameController.rodadaBots(jf);
@@ -169,11 +171,29 @@ public class GameController {
         String message;
         if (ex.youWin()) {
             message = "Parabéns! Você ganhou!!!";
+            JOptionPane.showMessageDialog(null, message);
+            new InputRank(calculaScore());
         } else {
             message = "Você perdeu.";
+            JOptionPane.showMessageDialog(null, message);
+            System.exit(0);
         }
-        JOptionPane.showMessageDialog(null, message);
-        System.exit(0);
+
+    }
+
+    private static double calculaScore() {
+        Double soma = 0.0;
+        Integer hpAtual;
+        Integer hpMax;
+        Personagem pers;
+        for (int i = 0; i < 12; i += 2) {
+            pers = getPersonagemAtIndex(i);
+            hpAtual = pers.getHp();
+            hpMax = pers.getMaxHealth();
+            soma += hpAtual.doubleValue() / hpMax.doubleValue();
+        }
+
+        return soma * 100;
     }
 
     private static void rodadaBots(Battle jf) {
