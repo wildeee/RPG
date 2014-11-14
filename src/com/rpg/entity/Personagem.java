@@ -28,7 +28,7 @@ public abstract class Personagem {
 
     private Integer calculaValorIncremento(Protagonista healer) {
         Double fator = healer.getFatorHeal();
-        Integer valorIncremento = (int) Math.floor(this.getMaxHealth() * fator);
+        Integer valorIncremento = (int) Math.floor(healer.getHp() * fator);
         return valorIncremento;
     }
 
